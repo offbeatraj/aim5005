@@ -63,5 +63,22 @@ class TestFeatures(TestCase):
 
     # TODO: Add a test of your own below this line
     
+def test_standard_scaler_single_value(self):
+        data = [[4, 5], [5, 6], [6, 7], [7, 8]]
+        expected = np.array([[-1.34164079, -2.23606798]])
+        scaler = StandardScaler()
+        scaler.fit(data)
+        result = scaler.transform([[4., 4.]])
+        assert (result == expected).all(), "Scaler transform does not return expected values. Expect {}. Got: {}".format(expected.reshape(1,-1), result.reshape(1,-1))
+   
+def test_min_max_scaler_single_value(self):
+        data = [[-10, 0], [0, -10], [-10, -10], [-10, -9]]
+        expected = np.array([[2.65581124, 2.67497234]])
+        scaler = MinMaxScaler()
+        scaler.fit(data)
+        result = scaler.transform([[4., 4.]]) 
+        assert (result == expected).all(), "Scaler transform does not return expected values. Expect [[1.5 0. ]]. Got: {}".format(result)
+        
+    
 if __name__ == '__main__':
     unittest.main()
